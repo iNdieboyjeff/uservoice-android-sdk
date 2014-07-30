@@ -19,7 +19,6 @@ public class PortalActivity extends BaseListActivity implements SearchActivity {
         getListView().setDivider(null);
         setListAdapter(new PortalAdapter(this));
         getListView().setOnItemClickListener(getModelAdapter());
-
         Babayaga.track(Babayaga.Event.VIEW_KB);
     }
 

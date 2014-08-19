@@ -123,7 +123,11 @@ public class ForumActivity extends BaseListActivity implements SearchActivity {
                 textView.setText(model.getTitle());
 
                 textView = (TextView) view.findViewById(R.id.uv_subscriber_count);
-                textView.setText(String.valueOf(model.getNumberOfSubscribers()));
+                if (Session.getInstance().getClientConfig().shouldDisplaySuggestionsByRank()) {
+                    textView.setText(model.getRankString());
+                } else {
+                    textView.setText(String.valueOf(model.getNumberOfSubscribers()));
+                }
 
                 textView = (TextView) view.findViewById(R.id.uv_suggestion_status);
                 View colorView = view.findViewById(R.id.uv_suggestion_status_color);
@@ -186,7 +190,6 @@ public class ForumActivity extends BaseListActivity implements SearchActivity {
                     startActivity(new Intent(ForumActivity.this, PostIdeaActivity.class));
                 } else if (position != 1) {
                     Suggestion suggestion = (Suggestion) getModelAdapter().getItem(position);
-                    Session.getInstance().setSuggestion(suggestion);
                     SuggestionDialogFragment dialog = new SuggestionDialogFragment(suggestion, null);
                     dialog.show(getSupportFragmentManager(), "SuggestionDialogFragment");
                 }
